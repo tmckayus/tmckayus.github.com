@@ -4,7 +4,7 @@
   <title><![CDATA[Mostly Cumin]]></title>
   <link href="http://tmckayus.github.com/atom.xml" rel="self"/>
   <link href="http://tmckayus.github.com/"/>
-  <updated>2012-09-17T09:58:16-04:00</updated>
+  <updated>2012-09-17T10:02:49-04:00</updated>
   <id>http://tmckayus.github.com/</id>
   <author>
     <name><![CDATA[Trevor McKay]]></name>
@@ -12,23 +12,5 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[General]]></title>
-    <link href="http://tmckayus.github.com/blog/2012/09/17/general/"/>
-    <updated>2012-09-17T09:57:00-04:00</updated>
-    <id>http://tmckayus.github.com/blog/2012/09/17/general</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Cumin specific]]></title>
-    <link href="http://tmckayus.github.com/blog/2012/09/17/cumin-specific/"/>
-    <updated>2012-09-17T09:57:00-04:00</updated>
-    <id>http://tmckayus.github.com/blog/2012/09/17/cumin-specific</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
   
 </feed>
