@@ -1,0 +1,21 @@
+---
+layout: post
+title: "So What is Cumin Anyway?"
+date: 2012-09-24 12:07
+comments: true
+categories: cumin 
+---
+
+Cumin is a Python web UI developed in the Fedora community for managing Condor pools and Qpid messaging brokers.  It is packaged for Fedora but may be run from sources and would probably be easy to port to other Linux distributions (or just run Fedora on a node or two in a heterogeneous environment!)  The current development focus for Cumin is on expanding the Condor management facilities.
+
+###Condor Management Facilities###
+Cumin is designed to meet the needs of a variety of Condor users.  Non-admin end users are given a streamlined interface to create and manage their own submissions.  The administrative views allow System Admins to monitor pool resources and Condor infrastructure while Operational Admins may be more interested in the workload running on the pool.  Cumin has development hooks which make it possible to create customized presentations for different user and site profiles.
+
+###Qpid Management Facilities
+ 
+Cumin's Qpid messaging views allow management of a Qpid deployment.  Users have visibility to message queues, exchanges, connections, and broker links.  Many of the tasks that can be done from the Qpid command line tools can also be done through Cumin.
+
+### How to Get Started ###
+[Wiki]:http://fedorahosted.org/grid/wiki/Cumin "http://fedorahosted.org/grid/wiki/Cumin"
+[The Cumin project wiki][Wiki] can be found [here][Wiki], including user and developer mailing lists, install guides,  and links to documentation.  If you have any questions or comments, please do not hesitate to hit the Cumin mailing lists!
+
