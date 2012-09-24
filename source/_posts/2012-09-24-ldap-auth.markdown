@@ -1,0 +1,31 @@
+---
+layout: post
+title: "Integrating Cumin with LDAP for Authentication"
+date: 2012-09-24 12:41
+comments: true
+categories: cumin
+---
+Past versions of Cumin have relied on a local database for storing user accounts.  However, that solution adds extra maintenance for site administrators who already have or plan to have a central authentication mechanism for their users.  Consequently, development is ongoing to integrate Cumin with common central auth mechanisms.  LDAP integration is available now, with support for other technologies planned for the future.
+
+### How will central authentication work with Cumin? 
+Let's call an instance of a supported authentication scheme an “authenticator”.  The PostgreSQL database installed with Cumin is the default authenticator – it will always be checked first whenever Cumin attempts to authenticate a user.  If Cumin cannot authenticate the user via PostgreSQL, it will try other authenticators (i.e., LDAP repositories) specified in the cumin configuration file in listed order until the user is authenticated or the list of authenticators is exhausted.
+
+#### A current limitation
+There is one limitation in the initial LDAP support which makes the PostgreSQL user database indispensable:  username and password may be specified in an LDAP repository, but the user role value can only explicitly be set in the PostgreSQL database (roles will be covered further in another blog post).  This means that the `admin` role must be applied to users in the local database via the `cumin-admin` script.  Non-admin users will default to the `user` role and no such entry will be needed.  In the future, support for role values in LDAP is planned and local entries for admins will not be necessary.
+
+### Miscellaneous Benefits, Implications, and Warnings
+
++ The local PostgreSQL user database may be very sparsely populated, containing only admin role assignments for certain users.  If a site has few Cumin administrators or uses a single shared administration account, overhead for managing the PostgreSQL user database will be very low indeed.
+
++ An entry for a user may be made in the PostgreSQL database at any time to occlude any and all LDAP repository entries for that user.  Using this feature, an admin could override a password to lock out a particular account or diagnose problems within that account, etc.
+
++ Multiple LDAP repositories may be specified as authenticators, and the same repository may be specified multiple times with different search criteria.  This allows the same user to be authenticated by alternative servers or different criteria in priority order.
+
++ Cumin supports LDAP connections over SSL as well as SSL between the browser and the web server.  In order for LDAP passwords to remain secure, SSL ***must be*** used on both network legs.   
+
+###### Documentation ######
+[MCIG]:http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_MRG/index.html
+The [Management Console Installation Guide][MCIG] contains everything you need to know to configure Cumin for LDAP authentication.
+
+ [Wiki]:http://fedorahosted.org/grid/wiki/Cumin
+ Here is a link to the [Cumin project wiki][Wiki]
