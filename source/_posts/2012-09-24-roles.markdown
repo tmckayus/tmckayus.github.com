@@ -19,9 +19,6 @@ Role enforcement is disabled by default in the standard Cumin configuration file
 
     [web]
     authorize: True  
-<pre>
-<!-- I want a blank line here and can't find another way to do it-->
-</pre>     
 
 ### Setting Role Values
 
