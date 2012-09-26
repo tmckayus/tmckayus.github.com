@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Mostly Cumin]]></title>
-  <link href="http://tmckayus.github.com/atom.xml" rel="self"/>
+  <title><![CDATA[Category: cumin | Mostly Cumin]]></title>
+  <link href="http://tmckayus.github.com/blog/categories/cumin/atom.xml" rel="self"/>
   <link href="http://tmckayus.github.com/"/>
   <updated>2012-09-26T12:47:44-04:00</updated>
   <id>http://tmckayus.github.com/</id>
@@ -22,7 +22,7 @@
 
 <h3>How will central authentication work with Cumin?</h3>
 
-<p>Let&#8217;s call an instance of a supported authentication scheme an “authenticator”.  The PostgreSQL database installed with Cumin is the default authenticator – it will always be checked first whenever Cumin attempts to authenticate a user.  If Cumin cannot authenticate the user via PostgreSQL, it will try other authenticators (i.e., LDAP repositories) specified in the cumin configuration file in listed order until the user is authenticated or the list of authenticators is exhausted.</p>
+<p>Let's call an instance of a supported authentication scheme an “authenticator”.  The PostgreSQL database installed with Cumin is the default authenticator – it will always be checked first whenever Cumin attempts to authenticate a user.  If Cumin cannot authenticate the user via PostgreSQL, it will try other authenticators (i.e., LDAP repositories) specified in the cumin configuration file in listed order until the user is authenticated or the list of authenticators is exhausted.</p>
 
 <h4>A current limitation</h4>
 
@@ -59,7 +59,7 @@
 
 <h3>Qpid Management Facilities</h3>
 
-<p>Cumin&#8217;s Qpid messaging views allow management of a Qpid deployment.  Users have visibility to message queues, exchanges, connections, and broker links.  Many of the tasks that can be done from the Qpid command line tools can also be done through Cumin.</p>
+<p>Cumin's Qpid messaging views allow management of a Qpid deployment.  Users have visibility to message queues, exchanges, connections, and broker links.  Many of the tasks that can be done from the Qpid command line tools can also be done through Cumin.</p>
 
 <h3>How to Get Started</h3>
 

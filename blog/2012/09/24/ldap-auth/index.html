@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Mostly Cumin</title>
+  <title>Integrating Cumin with LDAP for Authentication - Mostly Cumin</title>
   <meta name="author" content="Trevor McKay">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://tmckayus.github.com/">
+  <link rel="canonical" href="http://tmckayus.github.com/blog/2012/09/24/ldap-auth/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -62,15 +62,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/09/24/ldap-auth/">Integrating Cumin With LDAP for Authentication</a></h1>
+      <h1 class="entry-title">Integrating Cumin With LDAP for Authentication</h1>
     
     
       <p class="meta">
@@ -93,7 +90,7 @@
   </header>
 
 
-  <div class="entry-content"><p>Past versions of Cumin have relied on a local database for storing user accounts.  However, that solution adds extra maintenance for site administrators who already have or plan to have a central authentication mechanism for their users.  Consequently, development is ongoing to integrate Cumin with common central auth mechanisms.  LDAP integration is available now, with support for other technologies planned for the future.</p>
+<div class="entry-content"><p>Past versions of Cumin have relied on a local database for storing user accounts.  However, that solution adds extra maintenance for site administrators who already have or plan to have a central authentication mechanism for their users.  Consequently, development is ongoing to integrate Cumin with common central auth mechanisms.  LDAP integration is available now, with support for other technologies planned for the future.</p>
 
 <h3>How will central authentication work with Cumin?</h3>
 
@@ -119,22 +116,16 @@
 
 <p> Here is a link to the <a href="http://fedorahosted.org/grid/wiki/Cumin">Cumin project wiki</a></p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/09/24/new-post/">So What Is Cumin Anyway?</a></h1>
-    
-    
-      <p class="meta">
-        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Trevor McKay</span></span>
+
+      
 
 
 
@@ -146,39 +137,38 @@
   
 
 
-<time datetime="2012-09-24T12:07:00-04:00" pubdate data-updated="true">Sep 24<span>th</span>, 2012</time>
-        
-      </p>
+<time datetime="2012-09-24T12:41:00-04:00" pubdate data-updated="true">Sep 24<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cumin/'>cumin</a>
+  
+</span>
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><p>Cumin is a Python web UI developed in the Fedora community for managing Condor pools and Qpid messaging brokers.  It is packaged for Fedora but may be run from sources and would probably be easy to port to other Linux distributions (or just run Fedora on a node or two in a heterogeneous environment!)  The current development focus for Cumin is on expanding the Condor management facilities.</p>
-
-<h3>Condor Management Facilities</h3>
-
-<p>Cumin is designed to meet the needs of a variety of Condor users.  Non-admin end users are given a streamlined interface to create and manage their own submissions.  The administrative views allow System Admins to monitor pool resources and Condor infrastructure while Operational Admins may be more interested in the workload running on the pool.  Cumin has development hooks which make it possible to create customized presentations for different user and site profiles.</p>
-
-<h3>Qpid Management Facilities</h3>
-
-<p>Cumin&#8217;s Qpid messaging views allow management of a Qpid deployment.  Users have visibility to message queues, exchanges, connections, and broker links.  Many of the tasks that can be done from the Qpid command line tools can also be done through Cumin.</p>
-
-<h3>How to Get Started</h3>
-
-<p><a href="http://fedorahosted.org/grid/wiki/Cumin" title="http://fedorahosted.org/grid/wiki/Cumin">The Cumin project wiki</a> can be found <a href="http://fedorahosted.org/grid/wiki/Cumin" title="http://fedorahosted.org/grid/wiki/Cumin">here</a>, including user and developer mailing lists, install guides,  and links to documentation.  If you have any questions or comments, please do not hesitate to hit the Cumin mailing lists!</p>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://tmckayus.github.com/blog/2012/09/24/ldap-auth/" data-via="" data-counturl="http://tmckayus.github.com/blog/2012/09/24/ldap-auth/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/09/24/new-post/" title="Previous Post: So What is Cumin Anyway?">&laquo; So What is Cumin Anyway?</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
 </div>
+
 <aside class="sidebar">
   
     <section>
@@ -203,6 +193,7 @@
 
   
 </aside>
+
 
     </div>
   </div>
