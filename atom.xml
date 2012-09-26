@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Mostly Cumin]]></title>
+  <link href="http://tmckayus.github.com/atom.xml" rel="self"/>
+  <link href="http://tmckayus.github.com/"/>
+  <updated>2012-09-17T10:02:49-04:00</updated>
+  <id>http://tmckayus.github.com/</id>
+  <author>
+    <name><![CDATA[Trevor McKay]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+</feed>
