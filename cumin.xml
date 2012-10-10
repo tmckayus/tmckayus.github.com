@@ -4,7 +4,7 @@
   <title><![CDATA[Mostly Cumin]]></title>
   <link href="http://tmckayus.github.com/atom.xml" rel="self"/>
   <link href="http://tmckayus.github.com/"/>
-  <updated>2012-09-17T10:02:49-04:00</updated>
+  <updated>2012-09-26T12:47:44-04:00</updated>
   <id>http://tmckayus.github.com/</id>
   <author>
     <name><![CDATA[Trevor McKay]]></name>
@@ -12,5 +12,59 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Integrating Cumin with LDAP for Authentication]]></title>
+    <link href="http://tmckayus.github.com/blog/2012/09/24/ldap-auth/"/>
+    <updated>2012-09-24T12:41:00-04:00</updated>
+    <id>http://tmckayus.github.com/blog/2012/09/24/ldap-auth</id>
+    <content type="html"><![CDATA[<p>Past versions of Cumin have relied on a local database for storing user accounts.  However, that solution adds extra maintenance for site administrators who already have or plan to have a central authentication mechanism for their users.  Consequently, development is ongoing to integrate Cumin with common central auth mechanisms.  LDAP integration is available now, with support for other technologies planned for the future.</p>
+
+<h3>How will central authentication work with Cumin?</h3>
+
+<p>Let&#8217;s call an instance of a supported authentication scheme an “authenticator”.  The PostgreSQL database installed with Cumin is the default authenticator – it will always be checked first whenever Cumin attempts to authenticate a user.  If Cumin cannot authenticate the user via PostgreSQL, it will try other authenticators (i.e., LDAP repositories) specified in the cumin configuration file in listed order until the user is authenticated or the list of authenticators is exhausted.</p>
+
+<h4>A current limitation</h4>
+
+<p>There is one limitation in the initial LDAP support which makes the PostgreSQL user database indispensable:  username and password may be specified in an LDAP repository, but the user role value can only explicitly be set in the PostgreSQL database (roles will be covered further in another blog post).  This means that the <code>admin</code> role must be applied to users in the local database via the <code>cumin-admin</code> script.  Non-admin users will default to the <code>user</code> role and no such entry will be needed.  In the future, support for role values in LDAP is planned and local entries for admins will not be necessary.</p>
+
+<h3>Miscellaneous Benefits, Implications, and Warnings</h3>
+
+<ul>
+<li><p>The local PostgreSQL user database may be very sparsely populated, containing only admin role assignments for certain users.  If a site has few Cumin administrators or uses a single shared administration account, overhead for managing the PostgreSQL user database will be very low indeed.</p></li>
+<li><p>An entry for a user may be made in the PostgreSQL database at any time to occlude any and all LDAP repository entries for that user.  Using this feature, an admin could override a password to lock out a particular account or diagnose problems within that account, etc.</p></li>
+<li><p>Multiple LDAP repositories may be specified as authenticators, and the same repository may be specified multiple times with different search criteria.  This allows the same user to be authenticated by alternative servers or different criteria in priority order.</p></li>
+<li><p>Cumin supports LDAP connections over SSL as well as SSL between the browser and the web server.  In order for LDAP passwords to remain secure, SSL <strong><em>must be</em></strong> used on both network legs.</p></li>
+</ul>
+
+
+<h6>Documentation</h6>
+
+<p>The <a href="http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_MRG/index.html">Management Console Installation Guide</a> contains everything you need to know to configure Cumin for LDAP authentication.</p>
+
+<p> Here is a link to the <a href="http://fedorahosted.org/grid/wiki/Cumin">Cumin project wiki</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[So What is Cumin Anyway?]]></title>
+    <link href="http://tmckayus.github.com/blog/2012/09/24/new-post/"/>
+    <updated>2012-09-24T12:07:00-04:00</updated>
+    <id>http://tmckayus.github.com/blog/2012/09/24/new-post</id>
+    <content type="html"><![CDATA[<p>Cumin is a Python web UI developed in the Fedora community for managing Condor pools and Qpid messaging brokers.  It is packaged for Fedora but may be run from sources and would probably be easy to port to other Linux distributions (or just run Fedora on a node or two in a heterogeneous environment!)  The current development focus for Cumin is on expanding the Condor management facilities.</p>
+
+<h3>Condor Management Facilities</h3>
+
+<p>Cumin is designed to meet the needs of a variety of Condor users.  Non-admin end users are given a streamlined interface to create and manage their own submissions.  The administrative views allow System Admins to monitor pool resources and Condor infrastructure while Operational Admins may be more interested in the workload running on the pool.  Cumin has development hooks which make it possible to create customized presentations for different user and site profiles.</p>
+
+<h3>Qpid Management Facilities</h3>
+
+<p>Cumin&#8217;s Qpid messaging views allow management of a Qpid deployment.  Users have visibility to message queues, exchanges, connections, and broker links.  Many of the tasks that can be done from the Qpid command line tools can also be done through Cumin.</p>
+
+<h3>How to Get Started</h3>
+
+<p><a href="http://fedorahosted.org/grid/wiki/Cumin" title="http://fedorahosted.org/grid/wiki/Cumin">The Cumin project wiki</a> can be found <a href="http://fedorahosted.org/grid/wiki/Cumin" title="http://fedorahosted.org/grid/wiki/Cumin">here</a>, including user and developer mailing lists, install guides,  and links to documentation.  If you have any questions or comments, please do not hesitate to hit the Cumin mailing lists!</p>
+]]></content>
+  </entry>
   
 </feed>
