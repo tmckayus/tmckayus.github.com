@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Mostly Cumin</title>
+  <title>Credentials in LDAP URLs when Anonymous Search is Disabled - Mostly Cumin</title>
   <meta name="author" content="Trevor McKay">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://tmckayus.github.com/">
+  <link rel="canonical" href="http://tmckayus.github.com/blog/2012/10/10/ldap-credentials/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -62,15 +62,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/10/10/ldap-credentials/">Credentials in LDAP URLs When Anonymous Search Is Disabled</a></h1>
+      <h1 class="entry-title">Credentials in LDAP URLs When Anonymous Search Is Disabled</h1>
     
     
       <p class="meta">
@@ -93,7 +90,7 @@
   </header>
 
 
-  <div class="entry-content"><p>Cumin authenticates logins against LDAP using a two step process:</p>
+<div class="entry-content"><p>Cumin authenticates logins against LDAP using a two step process:</p>
 
 <ul>
 <li>Search for LDAP entries based on the login name and the search filter in the LDAP URL</li>
@@ -144,82 +141,16 @@
 
 <p>The Cumin project wiki can be found <a href="http://fedorahosted.org/grid/wiki/Cumin">here</a></p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/09/24/ldap-auth/">Integrating Cumin With LDAP for Authentication</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">Trevor McKay</span></span>
 
-<time datetime="2012-09-24T12:41:00-04:00" pubdate data-updated="true">Sep 24<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Past versions of Cumin have relied on a local database for storing user accounts.  However, that solution adds extra maintenance for site administrators who already have or plan to have a central authentication mechanism for their users.  Consequently, development is ongoing to integrate Cumin with common central auth mechanisms.  LDAP integration is available now, with support for other technologies planned for the future.</p>
-
-<h3>How will central authentication work with Cumin?</h3>
-
-<p>Let&#8217;s call an instance of a supported authentication scheme an “authenticator”.  The PostgreSQL database installed with Cumin is the default authenticator – it will always be checked first whenever Cumin attempts to authenticate a user.  If Cumin cannot authenticate the user via PostgreSQL, it will try other authenticators (i.e., LDAP repositories) specified in the cumin configuration file in listed order until the user is authenticated or the list of authenticators is exhausted.</p>
-
-<h4>A current limitation</h4>
-
-<p>There is one limitation in the initial LDAP support which makes the PostgreSQL user database indispensable:  username and password may be specified in an LDAP repository, but the user role value can only explicitly be set in the PostgreSQL database (roles will be covered further in another blog post).  This means that the <code>admin</code> role must be applied to users in the local database via the <code>cumin-admin</code> script.  Non-admin users will default to the <code>user</code> role and no such entry will be needed.  In the future, support for role values in LDAP is planned and local entries for admins will not be necessary.</p>
-
-<h3>Miscellaneous Benefits, Implications, and Warnings</h3>
-
-<ul>
-<li><p>The local PostgreSQL user database may be very sparsely populated, containing only admin role assignments for certain users.  If a site has few Cumin administrators or uses a single shared administration account, overhead for managing the PostgreSQL user database will be very low indeed.</p></li>
-<li><p>An entry for a user may be made in the PostgreSQL database at any time to occlude any and all LDAP repository entries for that user.  Using this feature, an admin could override a password to lock out a particular account or diagnose problems within that account, etc.</p></li>
-<li><p>Multiple LDAP repositories may be specified as authenticators, and the same repository may be specified multiple times with different search criteria.  This allows the same user to be authenticated by alternative servers or different criteria in priority order.</p></li>
-<li><p>Cumin supports LDAP connections over SSL as well as SSL between the browser and the web server.  In order for LDAP passwords to remain secure, SSL <strong><em>must be</em></strong> used on both network legs.</p></li>
-</ul>
-
-
-<h6>Documentation</h6>
-
-<p>The <a href="http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_MRG/index.html">Management Console Installation Guide</a> contains everything you need to know to configure Cumin for LDAP authentication.</p>
-
-<p> Here is a link to the <a href="http://fedorahosted.org/grid/wiki/Cumin">Cumin project wiki</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/09/24/new-post/">So What Is Cumin Anyway?</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -231,39 +162,32 @@
   
 
 
-<time datetime="2012-09-24T12:07:00-04:00" pubdate data-updated="true">Sep 24<span>th</span>, 2012</time>
-        
-      </p>
+<time datetime="2012-10-10T16:55:00-04:00" pubdate data-updated="true">Oct 10<span>th</span>, 2012</time>
+      
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><p>Cumin is a Python web UI developed in the Fedora community for managing Condor pools and Qpid messaging brokers.  It is packaged for Fedora but may be run from sources and would probably be easy to port to other Linux distributions (or just run Fedora on a node or two in a heterogeneous environment!)  The current development focus for Cumin is on expanding the Condor management facilities.</p>
-
-<h3>Condor Management Facilities</h3>
-
-<p>Cumin is designed to meet the needs of a variety of Condor users.  Non-admin end users are given a streamlined interface to create and manage their own submissions.  The administrative views allow System Admins to monitor pool resources and Condor infrastructure while Operational Admins may be more interested in the workload running on the pool.  Cumin has development hooks which make it possible to create customized presentations for different user and site profiles.</p>
-
-<h3>Qpid Management Facilities</h3>
-
-<p>Cumin&#8217;s Qpid messaging views allow management of a Qpid deployment.  Users have visibility to message queues, exchanges, connections, and broker links.  Many of the tasks that can be done from the Qpid command line tools can also be done through Cumin.</p>
-
-<h3>How to Get Started</h3>
-
-<p><a href="http://fedorahosted.org/grid/wiki/Cumin" title="http://fedorahosted.org/grid/wiki/Cumin">The Cumin project wiki</a> can be found <a href="http://fedorahosted.org/grid/wiki/Cumin" title="http://fedorahosted.org/grid/wiki/Cumin">here</a>, including user and developer mailing lists, install guides,  and links to documentation.  If you have any questions or comments, please do not hesitate to hit the Cumin mailing lists!</p>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://tmckayus.github.com/blog/2012/10/10/ldap-credentials/" data-via="" data-counturl="http://tmckayus.github.com/blog/2012/10/10/ldap-credentials/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/09/24/ldap-auth/" title="Previous Post: Integrating Cumin with LDAP for Authentication">&laquo; Integrating Cumin with LDAP for Authentication</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
 </div>
+
 <aside class="sidebar">
   
     <section>
@@ -292,6 +216,7 @@
 
   
 </aside>
+
 
     </div>
   </div>
