@@ -4,7 +4,7 @@
   <title><![CDATA[Mostly Cumin]]></title>
   <link href="http://tmckayus.github.com/atom.xml" rel="self"/>
   <link href="http://tmckayus.github.com/"/>
-  <updated>2012-10-10T16:58:57-04:00</updated>
+  <updated>2012-10-12T10:18:50-04:00</updated>
   <id>http://tmckayus.github.com/</id>
   <author>
     <name><![CDATA[Trevor McKay]]></name>
@@ -12,6 +12,64 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Credentials in LDAP URLs when Anonymous Search is Disabled]]></title>
+    <link href="http://tmckayus.github.com/blog/2012/10/10/ldap-credentials/"/>
+    <updated>2012-10-10T16:55:00-04:00</updated>
+    <id>http://tmckayus.github.com/blog/2012/10/10/ldap-credentials</id>
+    <content type="html"><![CDATA[<p>Cumin authenticates logins against LDAP using a two step process:</p>
+
+<ul>
+<li>Search for LDAP entries based on the login name and the search filter in the LDAP URL</li>
+<li>Attempt a simple bind operation using the distinguished names (dn) in returned entries and the password</li>
+</ul>
+
+
+<p>If anonymous access is disabled by the LDAP server, the first step will fail.  In this case, Cumin needs to bind to the server with credentials before doing the search for user records.  Happily, the URL syntax allows for credentials in the URL and Cumin will use them if provided to bind before the search.</p>
+
+<h3>Extra Attributes</h3>
+
+<p>The credentials for an initial bind can be set using LDAP extensions supported by the ldapurl module.  There are two additional attributes:</p>
+
+<ul>
+<li>bindname (a formal dn corresponding to an LDAP entry)</li>
+<li>X-BINDPW (a password that will work for that entry)</li>
+</ul>
+
+
+<p>These attributes follow the filter specification and are separated by a comma.  Any comma (,) characters present in the bindname value must be html-escaped because the URL parser will see them as attribute separators.  Futhermore, the % character in the escape code for a comma must be escaped itself to prevent Python from seeing it as a string substituion sequence.  Simple, right?</p>
+
+<h3>An Example</h3>
+
+<p>Let&#8217;s assume the following:</p>
+
+<ul>
+<li>The LDAP server is at example.com:389</li>
+<li>The search dn is ou=People,dc=example,dc=com</li>
+<li>The search scope is sub</li>
+<li>The filter compares uid to username (this is actually the default)</li>
+<li>The dn for an initial bind is uid=joeuser,ou=People,dc=example,dc=com</li>
+<li>The password for the initial bind is joepassword</li>
+</ul>
+
+
+<p>The LDAP URL in the Cumin configuration file would like like this:</p>
+
+<pre><code>auth: ldap://example.com:389/ou=People,dc=example,dc=com??sub?(&amp;(uid=%%s))?bindname=uid=joeuser%%2cou=People%%2cdc=example%%2cdc=com,X-BINDPW=joespassword  
+</code></pre>
+
+<p>Note in particular the %%2c substrings in the URL.  These are the commas in the bindname value.  In the interest of full disclosure, let me  be the first to say &#8220;yuck&#8221;.  But it works!</p>
+
+<h3>Caution!</h3>
+
+<p>LDAP credentials specified as part of a URL in the cumin configuration file will be visible to anyone who has access to the configuration file.  When Cumin is installed as a package the configuration file will be located at <code>/etc/cumin/cumin.conf</code> and will only be readable by the <code>cumin</code> user.  This should be adequate to protect the credentials as long as the permissions on that file are not changed.</p>
+
+<p>However, if Cumin is run from sources in a development instance, alternate configuration files are possible.  Care should be taken to protect those configuration files if they contain credentials.</p>
+
+<p>The Cumin project wiki can be found <a href="http://fedorahosted.org/grid/wiki/Cumin">here</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Integrating Cumin with LDAP for Authentication]]></title>
