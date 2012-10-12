@@ -3,7 +3,7 @@ layout: post
 title: "Credentials in LDAP URLs when Anonymous Search is Disabled"
 date: 2012-10-10 16:55
 comments: true
-categories: 
+categories: cumin
 ---
 Cumin authenticates logins against LDAP using a two step process:
 
