@@ -4,7 +4,7 @@
   <title><![CDATA[Mostly Cumin]]></title>
   <link href="http://tmckayus.github.com/atom.xml" rel="self"/>
   <link href="http://tmckayus.github.com/"/>
-  <updated>2012-10-12T10:18:50-04:00</updated>
+  <updated>2012-11-12T15:29:45-05:00</updated>
   <id>http://tmckayus.github.com/</id>
   <author>
     <name><![CDATA[Trevor McKay]]></name>
@@ -12,6 +12,55 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Role enforcement in Cumin]]></title>
+    <link href="http://tmckayus.github.com/blog/2012/11/12/role-enforcement-in-cumin/"/>
+    <updated>2012-11-12T15:20:00-05:00</updated>
+    <id>http://tmckayus.github.com/blog/2012/11/12/role-enforcement-in-cumin</id>
+    <content type="html"><![CDATA[<p>Roles in Cumin scope activities and content in the UI.  There are currently two roles defined in Cumin, <code>admin</code> and <code>user</code>.  The <code>admin</code> role is a superset of the <code>user</code> role, and every new account has the <code>user</code> role by default.</p>
+
+<h3>Differences in the Roles</h3>
+
+<p>The <code>admin</code> role allows a user to see various charts, graphs, and statistics related to performance of the Condor pool.  An admin can also see information about Condor infrastructure components such as schedulers and negotiators and can run certain pool management commands.  Admins are free to manage any job running in the pool regardless of who owns the job, but can also switch to the <code>user</code> view for the admin account.</p>
+
+<p>The <code>user</code> role allows a user to create and manage their own submissions.  They do not have visibility to jobs owned by other users, performance metrics, or pool management commands.</p>
+
+<h3>Enabling Role Enforcement</h3>
+
+<p>Role enforcement is disabled by default in the standard Cumin configuration file, effectively making every user an admin (the default will change in a future revision).  To enable role enforcement, set the <code>auth</code> configuration value to <code>True</code> in the cumin.conf configuration file:</p>
+
+<pre><code>[web]
+authorize: True  
+</code></pre>
+
+<h3>Setting Role Values</h3>
+
+<p>The role value is part of the account metadata along with username and password.  While username and password may optionally be managed in LDAP repositories, role values at this time may only be defined in the local PostgreSQL database.  This restriction will likely be removed in a future version.  You can read more about LDAP authentication in the earlier blog post <em>Cumin Authentication with LDAP</em>, and we&#8217;ll explain how to set roles for external user accounts below.</p>
+
+<p>Roles are managed with the <code>cumin-admin</code> commands <code>add-assignment</code> and <code>remove-assignment</code>:</p>
+
+<pre><code># cumin-admin add-assignment joeuser admin
+# cumin-admin remove-assignment joeuser admin
+</code></pre>
+
+<p>(An account may have the <code>user</code> and <code>admin</code> roles at the same time, but currently this has no real effect since <code>admin</code> is a superset.  It is not necessary to explicitly set the <code>user</code> role.)</p>
+
+<h3>Creating an Entry to Hold the Role for an LDAP Account</h3>
+
+<p>For accounts authenticated against LDAP, an entry must be added to the PostgreSQL database as a placeholder before the role value may be set.  This is done with the <code>cumin-admin</code> command <code>external-user</code>:</p>
+
+<pre><code># cumin-admin external-user myldapuser
+# cumin-admin add-assignment myladpuser admin
+</code></pre>
+
+<h3>More to Come</h3>
+
+<p>A future post may address the relationship of roles to <em>persona</em> and talk about development hooks that allow customization of the UI based on user and site profiles.</p>
+
+<p>The Cumin project wiki can be found <a href="http://fedorahosted.org/grid/wiki/Cumin">here</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Credentials in LDAP URLs when Anonymous Search is Disabled]]></title>

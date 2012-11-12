@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Role enforcement in Cumin - Mostly Cumin</title>
+  <meta name="author" content="Trevor McKay">
+
+  
+  <meta name="description" content="Roles in Cumin scope activities and content in the UI. There are currently two roles defined in Cumin, admin and user. The admin role is a superset &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://tmckayus.github.com/blog/2012/11/12/role-enforcement-in-cumin/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Mostly Cumin" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Mostly Cumin</a></h1>
+  
+    <h2>Things about the Cumin web UI for Condor (and other random insights).</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:tmckayus.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Role Enforcement in Cumin</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-12T15:20:00-05:00" pubdate data-updated="true">Nov 12<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Roles in Cumin scope activities and content in the UI.  There are currently two roles defined in Cumin, <code>admin</code> and <code>user</code>.  The <code>admin</code> role is a superset of the <code>user</code> role, and every new account has the <code>user</code> role by default.</p>
+
+<h3>Differences in the Roles</h3>
+
+<p>The <code>admin</code> role allows a user to see various charts, graphs, and statistics related to performance of the Condor pool.  An admin can also see information about Condor infrastructure components such as schedulers and negotiators and can run certain pool management commands.  Admins are free to manage any job running in the pool regardless of who owns the job, but can also switch to the <code>user</code> view for the admin account.</p>
+
+<p>The <code>user</code> role allows a user to create and manage their own submissions.  They do not have visibility to jobs owned by other users, performance metrics, or pool management commands.</p>
+
+<h3>Enabling Role Enforcement</h3>
+
+<p>Role enforcement is disabled by default in the standard Cumin configuration file, effectively making every user an admin (the default will change in a future revision).  To enable role enforcement, set the <code>auth</code> configuration value to <code>True</code> in the cumin.conf configuration file:</p>
+
+<pre><code>[web]
+authorize: True  
+</code></pre>
+
+<h3>Setting Role Values</h3>
+
+<p>The role value is part of the account metadata along with username and password.  While username and password may optionally be managed in LDAP repositories, role values at this time may only be defined in the local PostgreSQL database.  This restriction will likely be removed in a future version.  You can read more about LDAP authentication in the earlier blog post <em>Cumin Authentication with LDAP</em>, and we&#8217;ll explain how to set roles for external user accounts below.</p>
+
+<p>Roles are managed with the <code>cumin-admin</code> commands <code>add-assignment</code> and <code>remove-assignment</code>:</p>
+
+<pre><code># cumin-admin add-assignment joeuser admin
+# cumin-admin remove-assignment joeuser admin
+</code></pre>
+
+<p>(An account may have the <code>user</code> and <code>admin</code> roles at the same time, but currently this has no real effect since <code>admin</code> is a superset.  It is not necessary to explicitly set the <code>user</code> role.)</p>
+
+<h3>Creating an Entry to Hold the Role for an LDAP Account</h3>
+
+<p>For accounts authenticated against LDAP, an entry must be added to the PostgreSQL database as a placeholder before the role value may be set.  This is done with the <code>cumin-admin</code> command <code>external-user</code>:</p>
+
+<pre><code># cumin-admin external-user myldapuser
+# cumin-admin add-assignment myladpuser admin
+</code></pre>
+
+<h3>More to Come</h3>
+
+<p>A future post may address the relationship of roles to <em>persona</em> and talk about development hooks that allow customization of the UI based on user and site profiles.</p>
+
+<p>The Cumin project wiki can be found <a href="http://fedorahosted.org/grid/wiki/Cumin">here</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Trevor McKay</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-12T15:20:00-05:00" pubdate data-updated="true">Nov 12<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cumin/'>cumin</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://tmckayus.github.com/blog/2012/11/12/role-enforcement-in-cumin/" data-via="" data-counturl="http://tmckayus.github.com/blog/2012/11/12/role-enforcement-in-cumin/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/10/10/ldap-credentials/" title="Previous Post: Credentials in LDAP URLs when Anonymous Search is Disabled">&laquo; Credentials in LDAP URLs when Anonymous Search is Disabled</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/11/12/role-enforcement-in-cumin/">Role enforcement in Cumin</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/10/ldap-credentials/">Credentials in LDAP URLs when Anonymous Search is Disabled</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/24/ldap-auth/">Integrating Cumin with LDAP for Authentication</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/24/new-post/">So What is Cumin Anyway?</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Trevor McKay -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
